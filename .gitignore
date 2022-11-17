@@ -14,7 +14,7 @@ target/
 .sts4-cache
 **/static/*.*
 **/static/css
-**/static/fonts
+**/static/fonts/
 **/static/img
 **/static/js
 **/views/qna.jsp
