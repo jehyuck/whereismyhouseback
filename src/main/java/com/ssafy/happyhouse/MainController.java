@@ -8,7 +8,7 @@ public class MainController {
 	
 	@GetMapping({"/", "index"})
 	public String index() {
-		return "qna";
+		return "index";
 	}
 //	@GetMapping({"/qnas"})
 //	public String qna() {

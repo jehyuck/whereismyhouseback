@@ -1,5 +1,6 @@
 package com.ssafy.happyhouse.user.model.dao;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +24,9 @@ public interface UserDao {
 	public int idCheck(String userId) ;
 	String findPassword(Map<String,String> map) ;
 	
+	public User login(User user) throws SQLException;
+	public User userInfo(String userid) throws SQLException;
+	public void saveRefreshToken(Map<String, String> map) throws SQLException;
+	public Object getRefreshToken(String userid) throws SQLException;
+	public void deleteRefreshToken(Map<String, String> map) throws SQLException;
 }

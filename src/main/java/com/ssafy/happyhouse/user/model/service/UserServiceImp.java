@@ -1,7 +1,9 @@
 package com.ssafy.happyhouse.user.model.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +27,10 @@ public class UserServiceImp implements UserService {
 	@Override
 	@Transactional
 	public void insertUser(User user)  {
+		System.out.println(user);
 		User find = userDao.selectUser(user);
 		if (find != null) {
-			throw new RuntimeException("이미 등록된 isbn입니다.");
+			throw new RuntimeException("이미 등록된 id입니다.");
 		}
 		userDao.insertUser(user);
 	}
@@ -60,5 +63,39 @@ public class UserServiceImp implements UserService {
 		return userDao.findPassword(map);
 	}
 
-	
+	@Autowired
+	private SqlSession sqlSession;
+
+	@Override
+	public User login(User user) throws Exception {
+		if (user.getId() == null || user.getPass() == null)
+			return null;
+		return sqlSession.getMapper(UserDao.class).login(user);
+	}
+
+	@Override
+	public User userInfo(String userid) throws Exception {
+		return sqlSession.getMapper(UserDao.class).userInfo(userid);
+	}
+
+	@Override
+	public void saveRefreshToken(String userid, String refreshToken) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userid", userid);
+		map.put("token", refreshToken);
+		sqlSession.getMapper(UserDao.class).saveRefreshToken(map);
+	}
+
+	@Override
+	public Object getRefreshToken(String userid) throws Exception {
+		return sqlSession.getMapper(UserDao.class).getRefreshToken(userid);
+	}
+
+	@Override
+	public void deleRefreshToken(String userid) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userid", userid);
+		map.put("token", null);
+		sqlSession.getMapper(UserDao.class).deleteRefreshToken(map);
+	}
 }

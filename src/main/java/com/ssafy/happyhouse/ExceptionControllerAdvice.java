@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.ssafy.happyhouse.user.model.service.UnAuthorizedException;
+
 @ControllerAdvice
 public class ExceptionControllerAdvice {
 
@@ -21,6 +23,15 @@ public class ExceptionControllerAdvice {
 		model.addAttribute("msg", "처리중 에러 발생!!!");
 		return "error/error";
 	}
+//	
+//	@ExceptionHandler(UnAuthorizedException.class)
+//	public String handleLoginException(Exception ex, Model model) {
+//		logger.error("Exception 발생 : {}", ex.getMessage());
+//		ex.printStackTrace();
+//		model.addAttribute("msg", "처리중 에러 발생!!!");
+//		return "error/error";	//나중에 로그인페이지로 redirect하도록 바꿔주자
+//	}
+
 
 	@ExceptionHandler(NoHandlerFoundException.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,17 +29,18 @@ public class BookmarkController extends HttpServlet {
 	@Autowired
 	private BookmarkService bookmarkService;
 	
-	@Autowired
-	public BookmarkController(BookmarkService bookmarkService) {
-		// TODO Auto-generated constructor stub
-		this.bookmarkService = bookmarkService;
-	}
        
 	@GetMapping("/remove")
 	private String remove(@RequestParam String id)  {
 		bookmarkService.remove(id);
 		return "redirect:/bookmark/selectAll";
 	}
+	
+//	@DeleteMapping("/{id}")
+//	private String remove(@RequestParam String id)  {
+//		bookmarkService.remove(id);
+//		return "redirect:/bookmark/selectAll";
+//	}
 	
 	@PostMapping("/insert")
 	private String insert(@RequestParam Map<String, String> map, HttpSession session)  {

@@ -20,4 +20,10 @@ public interface UserService {
 	User selectUser(User user);
 	public int idCheck(String userId) ;
 	String findPassword(Map<String,String> map) ;
+	
+	public User login(User user) throws Exception;
+	public User userInfo(String id) throws Exception;
+	public void saveRefreshToken(String id, String refreshToken) throws Exception;
+	public Object getRefreshToken(String id) throws Exception;
+	public void deleRefreshToken(String id) throws Exception;
 }
