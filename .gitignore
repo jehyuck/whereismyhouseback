@@ -12,9 +12,13 @@ target/
 .settings
 .springBeans
 .sts4-cache
-**/static/*
+**/static/*.*
+**/static/css
+**/static/font
+**/static/img
+**/static/js
 **/views/qna.jsp
-
+**/bin/
 ### IntelliJ IDEA ###
 .idea
 *.iws
