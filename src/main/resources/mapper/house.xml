@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.happyhouse.house.model.dao.HouseInfoDao">
+	<select id="searchDong" parameterType="map" resultType="HouseInfo">
+		select * 
+		from 
+		(select aptCode, max(no) no 
+		from housedeal 
+		group by aptCode) rhd 
+		join housedeal hd 
+		on hd.aptCode = rhd.aptCode and hd.no = rhd.no 
+		join houseinfo hi 
+		on hi.aptCode = hd.aptCode 
+		join dongcode dc 
+		on hi.dongCode = dc.dongCode
+		<where>
+			<if test='dong != null and !dong.equals("")'> 
+				AND hi.dongCode = #{dong}
+			</if>
+			<if test='aptName != null and !aptName.equals("")'>
+				AND hi.aptName LIKE CONCAT('%', #{aptName}, '%')
+			</if>
+		</where> 
+	</select>
+	
+	<select id="totalListSize" parameterType="String" resultType="int">
+		select count(aptCode) cnt 
+		from ( 
+		select hi.aptCode 
+		from houseinfo hi 
+		join housedeal hd 
+		on hi.aptCode = hd.aptCode 
+		<where>
+			<if test='dong != null and !dong.equals("")'> 
+				AND hi.dongCode = #{dong}
+			</if>
+			<if test='aptName != null and !aptName.equals("")'>
+				AND hi.aptName LIKE CONCAT('%', #{aptName}, '%')
+			</if>
+		</where> 
+		group by hi.aptCode) aptCode 
+	</select>
+	
+	<select id="searchApt" parameterType="int" resultType="HouseInfo">
+		select * 
+		from housedeal 
+		where aptCode = #{aptCode}
+		order by no desc 
+	</select>
+</mapper>
