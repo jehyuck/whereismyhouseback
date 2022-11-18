@@ -56,4 +56,40 @@
 	<select id="selectAll" resultType="User">
 		SELECT * FROM users
 	</select>
+	
+	
+	
+	
+	<!-- //////////////////////////////////////////////////////////////////////////// -->
+	<!-- JWT login -->
+	<select id="login" parameterType="User" resultType="User">
+		select *
+		from user
+		where id = #{id} and pass = #{pass}
+	</select>
+	
+	<select id="userInfo" parameterType="string" resultType="User">
+		select *
+		from user
+		where id = #{id}
+	</select>
+	
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select token
+		from user
+		where id = #{id}
+	</select>
+	
+	<update id="saveRefreshToken" parameterType="map">
+		update user
+		set token = #{token}
+		where id = #{id}
+	</update>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update user
+		set token = #{token, jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+	
 </mapper>

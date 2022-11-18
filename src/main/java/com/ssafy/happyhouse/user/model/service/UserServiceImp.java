@@ -53,8 +53,8 @@ public class UserServiceImp implements UserService {
 	}
 	
 	@Override
-	public int idCheck(String userId)  {
-		return userDao.idCheck(userId);
+	public int idCheck(String id)  {
+		return userDao.idCheck(id);
 	}
 
 
@@ -74,27 +74,27 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public User userInfo(String userid) throws Exception {
-		return sqlSession.getMapper(UserDao.class).userInfo(userid);
+	public User userInfo(String id) throws Exception {
+		return sqlSession.getMapper(UserDao.class).userInfo(id);
 	}
 
 	@Override
-	public void saveRefreshToken(String userid, String refreshToken) throws Exception {
+	public void saveRefreshToken(String id, String refreshToken) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("userid", userid);
+		map.put("id", id);
 		map.put("token", refreshToken);
 		sqlSession.getMapper(UserDao.class).saveRefreshToken(map);
 	}
 
 	@Override
-	public Object getRefreshToken(String userid) throws Exception {
-		return sqlSession.getMapper(UserDao.class).getRefreshToken(userid);
+	public Object getRefreshToken(String id) throws Exception {
+		return sqlSession.getMapper(UserDao.class).getRefreshToken(id);
 	}
 
 	@Override
-	public void deleRefreshToken(String userid) throws Exception {
+	public void deleRefreshToken(String id) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("userid", userid);
+		map.put("id", id);
 		map.put("token", null);
 		sqlSession.getMapper(UserDao.class).deleteRefreshToken(map);
 	}
