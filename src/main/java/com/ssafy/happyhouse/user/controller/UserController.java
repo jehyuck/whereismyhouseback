@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,11 +48,7 @@ public class UserController extends HttpServlet {
 	
 	private RSAUtil rsaUtil = RSAUtil.getInstance();
 
-//	@GetMapping("/find")
-//	private String findpassword() {
-//		return "user/find-password";
-//	}
-	
+
 	@PostMapping("/find")
 	private String findpassword(@RequestParam Map<String, String> map, Model model) {
 		String find = userService.findPassword(map);
@@ -103,13 +100,6 @@ public class UserController extends HttpServlet {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
-	
-//	@GetMapping("/logout")
-//	public String logout(HttpSession session) {
-//		session.invalidate();
-//		return "redirect:/";
-//	}
 
 	@ApiOperation(value = "로그아웃", notes = "회원 정보를 담은 Token을 제거한다.", response = Map.class)
 	@GetMapping("/logout/{id}")
@@ -203,25 +193,13 @@ public class UserController extends HttpServlet {
 		System.out.println("count......."+count);
 		return count;
 	}
+
 	
-	@GetMapping("/remove")
-	private String remove() {
-		return "user/delete-account";
-	}
-	
-	@PostMapping("/remove")
-	public String remove(HttpSession session, Model model) {
-		User user = (User)session.getAttribute("userInfo");
-		String loginId = user.getId();
-		System.out.println(loginId);
-		if (loginId != null) {
-			userService.removeUser(loginId);
-			session.invalidate();
-			model.addAttribute("msg", "아이디:"+loginId+" 계정 탈퇴가 완료되었습니다.");
-		} else {
-			model.addAttribute("msg", "다시 시도해주세요.");
-		}
-		return "redirect:/";
+	@DeleteMapping("/remove/{id}")
+	public ResponseEntity<?> remove(@PathVariable String id) {
+		System.out.println("탈퇴....."+id);
+		userService.removeUser(id);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 

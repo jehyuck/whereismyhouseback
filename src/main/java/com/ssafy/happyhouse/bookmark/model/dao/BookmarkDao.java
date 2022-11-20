@@ -12,6 +12,6 @@ import com.ssafy.happyhouse.bookmark.model.dto.Bookmark;
 public interface BookmarkDao {
 	void insert(Map<String, String> map);
 	void remove(String id) ;
-	Bookmark select(Map<String, String> map);
+	Bookmark select(String id);
 	List<Bookmark> selectAll(String userid);
 }

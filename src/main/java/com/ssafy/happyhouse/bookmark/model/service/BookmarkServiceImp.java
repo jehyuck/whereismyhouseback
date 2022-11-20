@@ -29,8 +29,8 @@ public class BookmarkServiceImp implements BookmarkService {
 	}
 
 	@Override
-	public Bookmark select(Map<String, String> map)  {
-		return dao.select(map);
+	public Bookmark select(String id)  {
+		return dao.select(id);
 	}
 
 	@Override
