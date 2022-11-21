@@ -11,15 +11,7 @@ public class Notice implements Serializable {
 	
 	public Notice() {};
 
-	public Notice(int noticeNo, String title, String author, String content, String createdTime) {
-		super();
-		this.noticeNo = noticeNo;
-		this.title = title;
-		this.author = author;
-		this.content = content;
-		this.createdTime = createdTime;
-	}
-
+	
 	public int getNoticeNo() {
 		return noticeNo;
 	}

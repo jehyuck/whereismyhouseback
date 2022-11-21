@@ -18,13 +18,12 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import com.ssafy.happyhouse.ConfirmInterceptor;
 
-
 @Configuration
 //@EnableAspectJAutoProxy
 @MapperScan(basePackages = { "com.ssafy.**.model.dao" })
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-	//interceptor에서 처리할 url 리스트를 설정
+	// interceptor에서 처리할 url 리스트를 설정
 	private final List<String> patterns = Arrays.asList("/board/*", "/admin", "/user/list");
 
 	@Autowired
@@ -36,7 +35,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 		this.uploadFilePath = uploadFilePath;
 	}
 
-	
 //	rest를 위한 crossorigin설정
 //	@Override
 	public void addCorsMappings(CorsRegistry registry) {
@@ -45,8 +43,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 				.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
 						HttpMethod.DELETE.name(), HttpMethod.HEAD.name(), HttpMethod.OPTIONS.name(),
 						HttpMethod.PATCH.name())
-				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
-				.maxAge(1800);
+				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD").maxAge(1800);
 	}
 
 	@Override
@@ -54,7 +51,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 		registry.addInterceptor(confirmInterceptor).addPathPatterns(patterns);
 	}
 
-	//fileupload를 위한 요청 경로와 실제 경로 매핑
+	// fileupload를 위한 요청 경로와 실제 경로 매핑
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/upload/file/**").addResourceLocations("file:///" + uploadFilePath + "/")

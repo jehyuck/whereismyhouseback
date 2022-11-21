@@ -16,15 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.notice.model.dto.Notice;
 import com.ssafy.happyhouse.notice.model.service.NoticeService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
 
 @RestController
 @RequestMapping("/notice")
@@ -47,14 +45,14 @@ public class NoticeRestController extends HttpServlet {
 		Notice notice = noticeService.selectNotice(noticeNo1);
 		return new ResponseEntity<Notice>(notice, HttpStatus.OK);
 	}
-	@PostMapping()
+	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody Notice notice) {
-		System.out.println("insert..."+notice.toString());
+		System.out.println("insert..."+notice);
 		noticeService.insertNotice(notice);
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 	
-	@PutMapping()
+	@PutMapping("")
 	private ResponseEntity<?> update(@RequestBody Notice notice) {
 		System.out.print("notice update..........................");
 		System.out.println(notice);
