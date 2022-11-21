@@ -50,19 +50,19 @@ public class UserController extends HttpServlet {
 
 
 	@PostMapping("/find")
-	private String findpassword(@RequestParam Map<String, String> map, Model model) {
+	private ResponseEntity<Map<String, Object>> findpassword(@RequestBody Map<String, String> map) {
+		HttpStatus status = HttpStatus.ACCEPTED;
 		String find = userService.findPassword(map);
-		String view;
+		Map<String, Object> resultMap = new HashMap<>();
 		if(find!=null) {
-			model.addAttribute("msg", find);
-			view="user/find-password";
+			resultMap.put("find", find);
+			resultMap.put("message", SUCCESS);
 			System.out.println(find);
 		}else {
-			model.addAttribute("msg", "입력 정보를 다시 확인해 주세요.");
-			view="user/find-password";
+			resultMap.put("message", FAIL);
 			System.out.println(find);
 		}
-		return view;
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	//로그인 시도
