@@ -5,13 +5,13 @@
 <!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
 <mapper namespace="com.ssafy.happyhouse.notice.model.dao.NoticeDao">
 	<insert id="insertNotice" parameterType="notice">
-		INSERT INTO notice(title,author,content,createdTime) 
-		VALUES (#{title}, #{author}, #{content}, #{createdTime})
+		INSERT INTO notice(title,author,content) 
+		VALUES (#{title}, #{author}, #{content})
 	</insert>
 	
 	<update id="updateNotice" parameterType="notice">
 		UPDATE notice 
-		SET title=#{title}, author=#{author} , content=#{content}, createdTime=#{createdTime}
+		SET title=#{title}, author=#{author} , content=#{content}
 	</update>
 	
 	<delete id="removeNotice" parameterType="int">

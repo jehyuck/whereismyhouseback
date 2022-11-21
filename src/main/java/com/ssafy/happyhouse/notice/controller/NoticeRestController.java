@@ -60,8 +60,9 @@ public class NoticeRestController extends HttpServlet {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 	
-	@DeleteMapping()
-	private ResponseEntity<?> delete(@RequestBody String noticeNo) {
+	@DeleteMapping("/{noticeNo}")
+	private ResponseEntity<?> delete(@PathVariable String noticeNo) {
+		System.out.printf("deleteMapping.....................................%s",noticeNo);
 		noticeService.removeNotice(Integer.parseInt(noticeNo));
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
