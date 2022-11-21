@@ -6,9 +6,7 @@ import java.util.List;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -28,6 +26,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 	@Autowired
 	private ConfirmInterceptor confirmInterceptor;
+	
+	@Autowired
+	private ConfirmInterceptor JwtInterceptor;
 
 	private final String uploadFilePath;
 
@@ -49,6 +50,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(confirmInterceptor).addPathPatterns(patterns);
+		registry.addInterceptor(JwtInterceptor).addPathPatterns("/**");
 	}
 
 	// fileupload를 위한 요청 경로와 실제 경로 매핑
