@@ -72,6 +72,7 @@ public class QNAController extends HttpServlet {
 
 	@PutMapping("/answer")
 	private ResponseEntity<?> insertAnswer(@RequestBody Map<String, String> qna) {
+		System.out.println(qna);
 		qnaService.insertAnswer(qna);
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
