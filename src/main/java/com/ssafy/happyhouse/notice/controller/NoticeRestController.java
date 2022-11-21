@@ -56,6 +56,8 @@ public class NoticeRestController extends HttpServlet {
 	
 	@PutMapping()
 	private ResponseEntity<?> update(@RequestBody Notice notice) {
+		System.out.print("notice update..........................");
+		System.out.println(notice);
 		noticeService.updateNotice(notice);
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
