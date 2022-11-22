@@ -48,12 +48,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 //	rest를 위한 crossorigin설정
 //	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("*")
+		registry.addMapping("/**")
+			.allowedOrigins("*")
+			.exposedHeaders("*")
 //			.allowedOrigins("http://localhost:8080", "http://localhost:8081")
 				.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
 						HttpMethod.DELETE.name(), HttpMethod.HEAD.name(), HttpMethod.OPTIONS.name(),
 						HttpMethod.PATCH.name())
-				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD").maxAge(1800);
+//				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
+				.maxAge(1800);
 	}
 
 	@Override

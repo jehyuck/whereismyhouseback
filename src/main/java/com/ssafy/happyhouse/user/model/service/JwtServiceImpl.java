@@ -25,18 +25,20 @@ public class JwtServiceImpl implements JwtService {
 
 	private static final String SALT = "ssafySecret";
 	private static final int ACCESS_TOKEN_EXPIRE_MINUTES = 1; // 분단위
-	private static final int REFRESH_TOKEN_EXPIRE_MINUTES = 2; // 주단위
+	private static final int REFRESH_TOKEN_EXPIRE_MINUTES = 1; // 주단위
 
 	@Override
 	public <T> String createAccessToken(String key, T data) {
-		return create(key, data, "access-token", 1000 * 60 * ACCESS_TOKEN_EXPIRE_MINUTES);
+		System.out.println(1000 * 60 * ACCESS_TOKEN_EXPIRE_MINUTES);
+		return create(key, data, "access-token", 10000 * 60 * ACCESS_TOKEN_EXPIRE_MINUTES);
 //		return create(key, data, "access-token", 1000 * 10 * ACCESS_TOKEN_EXPIRE_MINUTES);
 	}
 
 //	AccessToken에 비해 유효기간을 길게...
 	@Override
 	public <T> String createRefreshToken(String key, T data) {
-		return create(key, data, "refresh-token", 1000 * 60 * 60 * 24 * 7 * REFRESH_TOKEN_EXPIRE_MINUTES);
+		System.out.println(10000 * 60 * 60 * 24 * 7 * REFRESH_TOKEN_EXPIRE_MINUTES);
+		return create(key, data, "refresh-token", 10000 * 60 * 60 * 24 * 7 * REFRESH_TOKEN_EXPIRE_MINUTES);
 //		return create(key, data, "refresh-token", 1000 * 30 * ACCESS_TOKEN_EXPIRE_MINUTES);
 	}
 
@@ -50,6 +52,17 @@ public class JwtServiceImpl implements JwtService {
 	 */
 	@Override
 	public <T> String create(String key, T data, String subject, long expire) {
+		System.out.println("====================");
+		System.out.println(expire);
+		System.out.println(new Date(System.currentTimeMillis()));
+		System.out.println(new Date(System.currentTimeMillis() + expire));
+		byte[] key2 = null;
+		try {
+			key2 = SALT.getBytes("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String jwt = Jwts.builder()
 				// Header 설정 : 토큰의 타입, 해쉬 알고리즘 정보 세팅.
 				.setHeaderParam("typ", "JWT")
@@ -84,7 +97,7 @@ public class JwtServiceImpl implements JwtService {
 //	전달 받은 토큰이 제대로 생성된것인지 확인 하고 문제가 있다면 UnauthorizedException을 발생.
 	@Override
 	public boolean checkToken(String jwt) {
-		System.out.println("checkToken~~~~~~~~~~~~~~~~~~~");
+		System.out.println("checkToken~~~~~~~~~~~~~~~~~~~"+jwt);
 		try {
 //			Json Web Signature? 서버에서 인증을 근거로 인증정보를 서버의 private key로 서명 한것을 토큰화 한것
 //			setSigningKey : JWS 서명 검증을 위한  secret key 세팅
@@ -92,7 +105,7 @@ public class JwtServiceImpl implements JwtService {
 			Jws<Claims> claims = Jwts.parser()
 					.setSigningKey(this.generateKey())
 					.parseClaimsJws(jwt);
-//			Claims 는 Map의 구현체 형태
+
 			logger.debug("claims: {}", claims);
 			return true;
 		} catch (Exception e) {
@@ -101,7 +114,9 @@ public class JwtServiceImpl implements JwtService {
 //			} else {
 			logger.error(e.getMessage());
 //			}
-			throw new UnAuthorizedException();
+//			System.out.println(claims);
+//			throw new UnAuthorizedException();
+			return false;
 //			개발환경
 		}
 	}
