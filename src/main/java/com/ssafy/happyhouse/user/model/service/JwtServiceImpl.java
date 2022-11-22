@@ -2,6 +2,7 @@ package com.ssafy.happyhouse.user.model.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,11 +84,14 @@ public class JwtServiceImpl implements JwtService {
 //	전달 받은 토큰이 제대로 생성된것인지 확인 하고 문제가 있다면 UnauthorizedException을 발생.
 	@Override
 	public boolean checkToken(String jwt) {
+		System.out.println("checkToken~~~~~~~~~~~~~~~~~~~");
 		try {
 //			Json Web Signature? 서버에서 인증을 근거로 인증정보를 서버의 private key로 서명 한것을 토큰화 한것
 //			setSigningKey : JWS 서명 검증을 위한  secret key 세팅
 //			parseClaimsJws : 파싱하여 원본 jws 만들기
-			Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(jwt);
+			Jws<Claims> claims = Jwts.parser()
+					.setSigningKey(this.generateKey())
+					.parseClaimsJws(jwt);
 //			Claims 는 Map의 구현체 형태
 			logger.debug("claims: {}", claims);
 			return true;
@@ -97,9 +101,8 @@ public class JwtServiceImpl implements JwtService {
 //			} else {
 			logger.error(e.getMessage());
 //			}
-//			throw new UnauthorizedException();
+			throw new UnAuthorizedException();
 //			개발환경
-			return false;
 		}
 	}
 
@@ -123,8 +126,10 @@ public class JwtServiceImpl implements JwtService {
 //			testMap.put("userid", userid);
 //			return testMap;
 		}
-		Map<String, Object> value = claims.getBody();
-		logger.info("value : {}", value);
+		@SuppressWarnings("unchecked")
+		Map<String, Object> value = (LinkedHashMap<String, Object>)claims.getBody().get(key);
+		//		Map<String, Object> value = claims.getBody();
+//		logger.info("value : {}", value);
 		return value;
 	}
 

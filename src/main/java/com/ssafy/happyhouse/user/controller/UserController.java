@@ -71,6 +71,7 @@ public class UserController extends HttpServlet {
 		System.out.println("로그인 시도");
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
+
 		try {
 			User loginUser = userService.login(user);
 			System.out.println("로그인유저....."+loginUser);
@@ -88,6 +89,9 @@ public class UserController extends HttpServlet {
 				status = HttpStatus.ACCEPTED;
 				System.out.println("토큰1....."+accessToken);
 				System.out.println("토큰2....."+refreshToken);
+				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+//				String memberId = jwtService.getUserId();
+//				System.out.println(memberId);
 			} else {
 				resultMap.put("message", FAIL);
 				status = HttpStatus.ACCEPTED;
@@ -162,6 +166,8 @@ public class UserController extends HttpServlet {
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 				System.out.println("status..."+status);
+				String memberId = jwtService.getUserId();
+				System.out.println(memberId);
 			} catch (Exception e) {
 				logger.error("정보조회 실패 : {}", e);
 				resultMap.put("message", e.getMessage());

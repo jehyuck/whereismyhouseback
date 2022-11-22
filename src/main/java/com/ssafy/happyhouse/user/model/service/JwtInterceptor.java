@@ -25,7 +25,6 @@ public static final Logger logger = LoggerFactory.getLogger(JwtInterceptor.class
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println(">>>>>>>>>>>>>>>>>>인터셉터 잘됨!!!!!!!!!!!!");
 		final String token = request.getHeader(HEADER_AUTH);
 
 		if(token != null && jwtService.checkToken(token)){

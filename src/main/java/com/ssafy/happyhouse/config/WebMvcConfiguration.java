@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import com.ssafy.happyhouse.ConfirmInterceptor;
+import com.ssafy.happyhouse.user.model.service.JwtInterceptor;
 
 @Configuration
 //@EnableAspectJAutoProxy
@@ -23,12 +24,20 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 	// interceptor에서 처리할 url 리스트를 설정
 	private final List<String> patterns = Arrays.asList("/board/*", "/admin", "/user/list");
-
+    private static final String[] INCLUDE_PATHS = {
+            "/bookmark/**",
+            "/notice/**",
+            "/qna"
+    };
+    private static final String[] EXCLUDE_PATHS = {
+            "/user/**",
+            "/house/**",
+    };
 	@Autowired
 	private ConfirmInterceptor confirmInterceptor;
 	
 	@Autowired
-	private ConfirmInterceptor JwtInterceptor;
+	private JwtInterceptor  jwtInterceptor;
 
 	private final String uploadFilePath;
 
@@ -50,7 +59,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(confirmInterceptor).addPathPatterns(patterns);
-		registry.addInterceptor(JwtInterceptor).addPathPatterns("/**");
+		registry.addInterceptor(jwtInterceptor).addPathPatterns(INCLUDE_PATHS)
+											   .excludePathPatterns(EXCLUDE_PATHS);
 	}
 
 	// fileupload를 위한 요청 경로와 실제 경로 매핑
