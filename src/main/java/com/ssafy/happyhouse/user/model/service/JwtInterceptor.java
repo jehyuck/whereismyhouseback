@@ -26,6 +26,11 @@ public static final Logger logger = LoggerFactory.getLogger(JwtInterceptor.class
 	    if (HttpMethod.OPTIONS.matches(request.getMethod())) {
 	        return true;
 	    }
+	    System.out.println(request.getServletPath());
+	    System.out.println(request.getMethod());
+	    if ((request.getServletPath().equals("/notice") || request.getServletPath().equals("/qna")) && request.getMethod().equals("GET")) {
+	    	return true;
+	    }
 		final String token = request.getHeader(HEADER_AUTH);
 		if(token != null && jwtService.checkToken(token)){
 			logger.info("토큰 사용 가능 : {}", token);

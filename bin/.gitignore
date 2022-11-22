@@ -12,7 +12,9 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+**/static/
+**/views/qna.jsp
+**/bin/
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -31,3 +33,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/.metadata/

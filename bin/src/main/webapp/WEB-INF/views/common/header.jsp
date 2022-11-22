@@ -3,12 +3,12 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
     <header class="header navbar-area">
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+<!--     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css" />
     <link rel="stylesheet" href="/assets/css/animate.css" />
     <link rel="stylesheet" href="/assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="/assets/css/glightbox.min.css" />
-    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" /> -->
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-12">
@@ -30,57 +30,41 @@
                   <span class="toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                  <ul id="nav" class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                      <a
-                        class="active dd-menu collapsed"
-                        href="${root}/index"
-                        data-bs-toggle="collapse"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                        >Home</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        class="dd-menu collapsed"
-                        href="javascript:void(0)"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#submenu-1-4"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                        >Pages</a
-                      >
-                      <ul class="sub-menu collapse" id="submenu-1-4">
-                        <ul>
-                          <li class="nav-item"><a href="${root}/house/page">검색</a></li>
-                          <li class="nav-item"><a href="${root}/pages/about-us">홈페이지 소개</a></li>
-                          <li class="nav-item"><a href="${root}/notice/selectAll">공지사항</a></li>
-                          <li class="nav-item"><a href="${root}/pages/sitemap">사이트맵</a></li>
-                        </ul>
-                      </ul>
-                    </li>
-                    <c:if test="${not empty userInfo}">
-                        <li class="nav-item">
-                          <a
-                            class="dd-menu collapsed"
-                            href="javascript:void(0)"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#submenu-1-5"
-                            aria-controls="navbarSupportedContent"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                            >My Page</a
-                          >
-                          <ul class="sub-menu collapse" id="submenu-1-5">
-                            <li class="nav-item"><a href="${root}/bookmark/selectAll">나의 관심 지역</a></li>
-                          </ul>
-                        </li>
-                    </c:if>
-                  </ul>
-                </div>
+							<ul id="nav" class="navbar-nav ms-auto">
+								<li class="nav-item"><a class="active dd-menu collapsed"
+									href="${root}/index" data-bs-toggle="collapse"
+									aria-controls="navbarSupportedContent" aria-expanded="false"
+									aria-label="Toggle navigation">Home</a>
+								</li>
+								<li class="nav-item"><a class="dd-menu collapsed"
+									href="javascript:void(0)" data-bs-toggle="collapse"
+									data-bs-target="#submenu-1-4"
+									aria-controls="navbarSupportedContent" aria-expanded="false"
+									aria-label="Toggle navigation">Pages</a>
+									<ul class="sub-menu collapse" id="submenu-1-4">
+										<ul>
+											<li class="nav-item"><a href="${root}/house/page">검색</a></li>
+											<li class="nav-item"><a href="${root}/pages/about-us">홈페이지
+													소개</a></li>
+											<li class="nav-item"><a href="${root}/notice/selectAll">공지사항</a></li>
+											<li class="nav-item"><a href="${root}/pages/sitemap">사이트맵</a></li>
+										</ul>
+									</ul></li>
+								<c:if test="${not empty userInfo}">
+									<li class="nav-item"><a class="dd-menu collapsed"
+										href="javascript:void(0)" data-bs-toggle="collapse"
+										data-bs-target="#submenu-1-5"
+										aria-controls="navbarSupportedContent" aria-expanded="false"
+										aria-label="Toggle navigation">My
+											Page</a>
+										<ul class="sub-menu collapse" id="submenu-1-5">
+											<li class="nav-item"><a
+												href="${root}/bookmark/selectAll">나의 관심 지역</a></li>
+										</ul></li>
+								</c:if>
+								<li class="nav-item"><a href="${root }/qnas">qna</a></li>
+							</ul>
+						</div>
                 <!-- navbar collapse -->
                 <div class="login-button">
                   <ul>

@@ -14,11 +14,11 @@
 	</delete>
 
 	<!-- 모든 사용자 정보를 검색한다. id는 Dao클래스의 메소드 이름과 일치시킨다. -->
-	<select id="select" parameterType="Map" resultType="Bookmark">
+	<select id="select" parameterType="String" resultType="Bookmark">
 		SELECT id, userid, bk.dongCode, sidoName, gugunName, dongName
 		FROM bookmark bk JOIN dongcode dc
 		ON bk.dongCode = dc.dongCode
-		WHERE userid=#{userid} and id=#{id};
+		WHERE id=#{id};
 	</select>
 
 	<!-- 모든 사용자 정보를 검색한다. id는 Dao클래스의 메소드 이름과 일치시킨다. -->
