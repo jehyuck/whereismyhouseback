@@ -27,7 +27,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     private static final String[] INCLUDE_PATHS = {
             "/bookmark/**",
             "/notice/**",
-            "/qna"
+            "/qna/**"
     };
     private static final String[] EXCLUDE_PATHS = {
             "/user/**",
