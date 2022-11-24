@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.happyhouse.notice.model.dao.NoticeDao">
+	<insert id="insertNotice" parameterType="notice">
+		INSERT INTO notice(title,author,content) 
+		VALUES (#{title}, #{author}, #{content})
+	</insert>
+	
+	<update id="updateNotice" parameterType="notice">
+		UPDATE notice 
+		SET title=#{title}, author=#{author} , content=#{content}
+	</update>
+	
+	<delete id="removeNotice" parameterType="int">
+		DELETE FROM notice WHERE noticeNo=#{noticeNo}
+	</delete>
+	
+	<select id="selectNotice" parameterType="int" resultType="notice">
+		SELECT * FROM notice WHERE noticeNo=#{noticeNo}
+	</select>
+	
+	<select id="selectNoticeAll" resultType="notice">
+		SELECT * FROM notice
+	</select>
+</mapper>

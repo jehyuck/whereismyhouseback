@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.happyhouse.qna.model.dao.QNADao">
+
+	<sql id='searchcon'>
+        <if  test="word != null and word !='' ">
+            <choose>
+                <when test=" key =='qnaNo'">
+                    qnaNo = #{word}
+                </when>
+                <when test=" key =='title'">
+                    title like  concat('%',#{word},'%') 
+                </when>
+                <when test=" key =='userId'">
+                    userId like  concat('%',#{word},'%') 
+                </when>
+            </choose>
+        </if>
+    </sql>
+   
+	<insert id="insertQNA" parameterType="QNA">
+		INSERT INTO qna(title,userId,content) 
+		VALUES (#{title}, #{userId}, #{content})
+	</insert>
+	
+	<update id="updateQNA" parameterType="QNA">
+		UPDATE qna 
+		SET title=#{title}, content=#{content}
+		where qnaNo=#{qnaNo}
+	</update>
+	
+	<update id="insertAnswer" parameterType="map">
+		UPDATE qna 
+		SET answer=#{answer}
+		where qnaNo=#{qnaNo}
+	</update>
+	
+	<update id="updateAnswer" parameterType="QNA">
+		UPDATE qna 
+		SET answer=#{answer}
+		where qnaNo=#{qnaNo}
+	</update>
+	
+	<delete id="removeQNA" parameterType="int">
+		DELETE FROM qna WHERE qnaNo=#{qnaNo}
+	</delete>
+	
+	<select id="selectQNA" parameterType="int" resultType="QNA">
+		SELECT * FROM qna 
+		WHERE qnaNo=#{qnaNo}
+	</select>
+	
+	<select id="selectQNAAll" resultType="QNA">
+		SELECT * FROM qna
+		<where>
+            <include refid="searchcon"/>    
+        </where>
+	</select>
+</mapper>

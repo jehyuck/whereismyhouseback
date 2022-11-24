@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.happyhouse.user.model.dao.UserDao">
+	
+	<!-- 사용자 정보를 저장한다. id는 Dao클래스의 메소드 이름과 일치시킨다. -->
+	<insert id="insertUser" parameterType="User">
+		 INSERT INTO  user(id, pass, name, address, phone)  VALUES (#{id},#{pass},#{name},#{address},#{phone});
+	</insert> 
+	
+	<update id="updateUser" parameterType="User">
+		update user 
+		set  pass=#{pass}, name=#{name}, address=#{address}, phone=#{phone}  
+		where id=#{id}
+	</update>
+	
+	<delete id="removeUser" parameterType="String">
+		delete from user where  id =#{id}
+	</delete>
+	
+	<select id="selectUser" parameterType="User" resultType="User">
+		select * from user where id=#{id} and pass=#{pass}
+	</select>
+	
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(id)
+		from user
+		where id = #{id}
+	</select>
+	
+	<select id="findPassword" parameterType="Map" resultType="String">
+		select pass 
+		from user 
+		where id=#{id} and name=#{name} and phone=#{phone};
+	</select>
+	
+	
+	
+	
+	<!-- 사용자를 id로 검색하여 조회한다. id는 Dao클래스의 메소드 이름과 일치시킨다. -->
+	<select id="searchById" parameterType="String" resultType="User" >
+		SELECT *
+		FROM users WHERE id = #{id}
+	</select>
+
+	<!-- 사용자 이름으로 검색하여 조회한다. id는 Dao클래스의 메소드 이름과 일치시킨다. -->
+	<select id="searchByName" parameterType="String" resultType="User">
+		SELECT *
+		FROM users WHERE name LIKE
+		CONCAT('%',#{name},'%')
+	</select>
+
+	<!-- 모든 사용자 정보를 검색한다. id는 Dao클래스의 메소드 이름과 일치시킨다. -->
+	<select id="selectAll" resultType="User">
+		SELECT * FROM users
+	</select>
+	
+	
+	
+	
+	<!-- //////////////////////////////////////////////////////////////////////////// -->
+	<!-- JWT login -->
+	<select id="login" parameterType="User" resultType="User">
+		select *
+		from user
+		where id = #{id} and pass = #{pass}
+	</select>
+	
+	<select id="userInfo" parameterType="string" resultType="User">
+		select *
+		from user
+		where id = #{id}
+	</select>
+	
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select token
+		from user
+		where id = #{id}
+	</select>
+	
+	<update id="saveRefreshToken" parameterType="map">
+		update user
+		set token = #{token}
+		where id = #{id}
+	</update>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update user
+		set token = #{token, jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+	
+</mapper>
