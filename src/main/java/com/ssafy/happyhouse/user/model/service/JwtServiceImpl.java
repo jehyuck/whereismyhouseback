@@ -30,7 +30,7 @@ public class JwtServiceImpl implements JwtService {
 	@Override
 	public <T> String createAccessToken(String key, T data) {
 		System.out.println(1000 * 60 * ACCESS_TOKEN_EXPIRE_MINUTES);
-		return create(key, data, "access-token", 10000 * 60 * ACCESS_TOKEN_EXPIRE_MINUTES);
+		return create(key, data, "access-token", 1000 * 10 * ACCESS_TOKEN_EXPIRE_MINUTES);
 //		return create(key, data, "access-token", 1000 * 10 * ACCESS_TOKEN_EXPIRE_MINUTES);
 	}
 
@@ -112,6 +112,7 @@ public class JwtServiceImpl implements JwtService {
 //			if (logger.isInfoEnabled()) {
 //				e.printStackTrace();
 //			} else {
+			System.out.println("여기니...................................?");
 			logger.error(e.getMessage());
 //			}
 //			System.out.println(claims);
