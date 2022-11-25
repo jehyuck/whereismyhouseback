@@ -12,6 +12,7 @@
 	<update id="updateNotice" parameterType="notice">
 		UPDATE notice 
 		SET title=#{title}, author=#{author} , content=#{content}
+		where noticeNo=#{noticeNo}
 	</update>
 	
 	<delete id="removeNotice" parameterType="int">
